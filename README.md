@@ -34,4 +34,24 @@ These scripts:
 
     virtual machine on VirtualBox via Vagrant.
 
-2. Install and configure Git, Java 8, and Maven 3.3.
+2. Install and configure 
+   - Git, Java 8, and Maven 3.3.
+   - FAST, ODL
+
+## Start FAST system
+
+1. Start ODL
+   
+   ```
+   ./distribution-karaf-0.4.3-Beryllium-SR3/bin/karaf
+   ```
+
+2. Start FAST system based on ODL
+   
+   How to install a kar file, please see here
+   
+   https://wiki.opendaylight.org/view/FAST_Maple_Tutorials:_High-Level_SDN_Programming_using_Algorithmic_Policies#Running_the_hello_world_project
+   
+3. Play around with your first FAST APP
+
+    https://wiki.opendaylight.org/view/FAST_Maple_Tutorials:_High-Level_SDN_Programming_using_Algorithmic_Policies
