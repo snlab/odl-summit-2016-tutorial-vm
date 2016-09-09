@@ -49,4 +49,5 @@ fi
 rm distribution-karaf-0.4.3-Beryllium-SR3.zip
 rm -r TempFastSystemKar
 
+echo "FASTMaple VM booted successfully!"
 EOF
