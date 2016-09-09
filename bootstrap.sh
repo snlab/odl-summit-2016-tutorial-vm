@@ -11,7 +11,7 @@ java -version
 mvn --version
 
 # run the remaining commands as the vagrant user
-sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK su vagrant <<EOF
+su vagrant <<EOF
 
 # set JAVA_HOME on login, by appending to .bashrc
 echo "export JAVA_HOME=$(readlink -f /usr/bin/javac | sed 's:/bin/javac::')" >> ~/.bashrc
@@ -41,7 +41,7 @@ if [ ! -f "~/distribution-karaf-0.4.3-Beryllium-SR3.zip" ]; then
   wget --progress=bar:force https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.4.3-Beryllium-SR3/distribution-karaf-0.4.3-Beryllium-SR3.zip
 fi
 
-if [ ! -d "~/distribution-karaf-0.4.3-Beryllium-SR3 ]; then
+if [ ! -d "~/distribution-karaf-0.4.3-Beryllium-SR3" ]; then
   unzip distribution-karaf-0.4.3-Beryllium-SR3.zip > /dev/null
 fi
 
