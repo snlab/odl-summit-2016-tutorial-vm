@@ -3,7 +3,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Ubuntu Server 14.04.5 LTS Trusty Tahr (64-bit): https://vagrantcloud.com/box-cutter/boxes/ubuntu1404-desktop
-  config.vm.box = "box-cutter/ubuntu1604-desktop"
+  config.vm.box = "box-cutter/ubuntu1404-desktop"
 
   # forward ssh agent and X11
   config.ssh.forward_agent = true
@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 8181, host: 8181
   config.vm.network "forwarded_port", guest: 80, host: 80
   config.vm.network "forwarded_port", guest: 3000, host: 3000
- 
+  config.vm.network "forwarded_port", guest: 8080, host: 8080 
   # configure virtualbox provider
   config.vm.provider "virtualbox" do |v|
     v.name = "FASTMaple"

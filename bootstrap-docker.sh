@@ -3,6 +3,12 @@
 # run the remaining commands as the vagrant user
 
 # install docker
+answer=$(dpkg -s docker-engine|grep installed)
+
+if [ "" != "$answer" ]; then
+  echo "docker has been installed successfully!"
+  exit 0
+fi
 sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D

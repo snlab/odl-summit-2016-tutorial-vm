@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Install base
-sudo apt-get update
-sudo apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs tmux
+apt-get update
+apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs tmux
 
 # Install Node.js
-sudo curl -sL https://deb.nodesource.com/setup | bash -
-sudo apt-get install -y nodejs
+curl -sL https://deb.nodesource.com/setup | bash -
+apt-get install -y nodejs
+
 
 pushd /home/vagrant/tutorial/    
 # Install Cloud9
@@ -16,10 +17,33 @@ git clone https://github.com/fno2010/core.git -b devopen ./cloud9
 # Tweak standlone.js conf
 sed -i -e 's_127.0.0.1_0.0.0.0_g' ./cloud9/configs/standalone.js 
 
+# Install plugins
+pushd /home/vagrant/tutorial/cloud9/configs
+if [ ! -d "snlab.devopen.newresource" ];then
+  git clone https://github.com/snlab/snlab.devopen.newresource
+fi
+if [ ! -d "snlab.devopen.controller" ];then
+  git clone https://github.com/snlab/snlab.devopen.controller
+fi
+if [ ! -d "snlab.devopen.server" ];then
+  git clone https://github.com/snlab/snlab.devopen.server
+fi
+if [ ! -d "cloud9-docker" ];then
+  git clone https://github.com/fno2010/cloud9-docker.git -b devopen
+fi
+cp -fr /home/vagrant/tutorial/cloud9/configs/cloud9-docker/conf/test-config.js /home/vagrant/tutorial/cloud9/configs/
+cp -fr /home/vagrant/tutorial/cloud9/configs/cloud9-docker/conf/client-workspace-test.js /home/vagrant/tutorial/cloud9/configs/
+popd
+
 # Add workspace
 if [ ! -d "/home/vagrant/tutorial/workspace" ]; then
   mkdir /home/vagrant/tutorial/workspace
 fi
+
+# Add start cloud9
+echo "nodejs /home/vagrant/tutorial/cloud9/server.js test-config -s standalone -workspacetype=test -l 0.0.0.0 -p 8080 -w /home/vagrant/tutorial/workspace" > /home/vagrant/tutorial/cloud9/start.sh
+
+sudo chmod 777 /home/vagrant/tutorial/cloud9/start.sh
 
 # Clean up APT when done.
 sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
