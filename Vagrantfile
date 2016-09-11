@@ -11,7 +11,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a forwarded port
   config.vm.network "forwarded_port", guest: 8181, host: 8181
-  
+  config.vm.network "forwarded_port", guest: 80, host: 80
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
+ 
   # configure virtualbox provider
   config.vm.provider "virtualbox" do |v|
     v.name = "FASTMaple"
@@ -20,6 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # run ./bootstrap.sh
-  config.vm.provision :shell, :path => "bootstrap.sh"
-
+  config.vm.provision :shell, :path => "bootstrap-fast.sh"
+  config.vm.provision :shell, :path => "bootstrap-docker.sh"
+  config.vm.provision :shell, :path => "bootstrap-devopen.sh"
 end
