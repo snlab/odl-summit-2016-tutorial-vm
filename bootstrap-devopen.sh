@@ -26,6 +26,14 @@ if [ ! -d "snlab.devopen.newresource" ]; then
 fi
 if [ ! -d "snlab.devopen.controller" ]; then
   git clone https://github.com/snlab/snlab.devopen.controller
+  if [ ! -d "/home/vagrant/bin" ]; then
+    mkdir /home/vagrant/bin
+    pushd /home/vagrant/bin
+    npm install ssh2 && npm install scp2
+    export PATH=$PATH:/home/vagrant/bin
+    popd
+  fi
+  cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
 fi
 if [ ! -d "snlab.devopen.server" ]; then
   git clone https://github.com/snlab/snlab.devopen.server
