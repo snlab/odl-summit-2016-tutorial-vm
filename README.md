@@ -55,3 +55,15 @@ These scripts:
 3. Play around with your first FAST APP
 
     https://wiki.opendaylight.org/view/FAST_Maple_Tutorials:_High-Level_SDN_Programming_using_Algorithmic_Policies
+
+## Start IDE
+
+1. Execute start.sh in cloud9
+   ```
+   ./home/vagrant/tutorial/cloud9/start.sh
+   ```
+
+2. Open your browser, and type below URI
+   ```
+   localhost:9000
+   ```
