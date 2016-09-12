@@ -11,13 +11,13 @@ apt-get install -y nodejs
 # run the remaining commands as the vagrant user
 su vagrant <<EOF
 
-pushd /home/vagrant/tutorial/    
+pushd /home/vagrant/tutorial/
 # Install Cloud9
 git clone https://github.com/fno2010/core.git -b devopen ./cloud9
 ./cloud9/scripts/install-sdk.sh
 
 # Tweak standlone.js conf
-sed -i -e 's_127.0.0.1_0.0.0.0_g' ./cloud9/configs/standalone.js 
+sed -i -e 's_127.0.0.1_0.0.0.0_g' ./cloud9/configs/standalone.js
 
 # Install plugins
 pushd /home/vagrant/tutorial/cloud9/plugins
@@ -27,12 +27,12 @@ fi
 if [ ! -d "snlab.devopen.controller" ]; then
   git clone https://github.com/snlab/snlab.devopen.controller
   if [ ! -d "/home/vagrant/bin" ]; then
-    mkdir /home/vagrant/bin
-    pushd /home/vagrant/bin
-    npm install ssh2 && npm install scp2
+    mkdir -p /home/vagrant/bin
     export PATH=$PATH:/home/vagrant/bin
-    popd
   fi
+  pushd /home/vagrant/bin
+  npm install ssh2 && npm install scp2
+  popd
   cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
 fi
 if [ ! -d "snlab.devopen.server" ]; then
@@ -58,9 +58,10 @@ popd
 
 # Install express, ssh2, body-parser
 pushd /home/vagrant/tutorial/cloud9
+npm install body-parser
 npm install express
 npm install ssh2
-npm install body-parser
+npm install sqlite3
 popd
 EOF
 
