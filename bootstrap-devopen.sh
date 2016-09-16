@@ -62,6 +62,7 @@ npm install body-parser
 npm install express
 npm install ssh2
 npm install sqlite3
+npm install request
 popd
 EOF
 
