@@ -10,13 +10,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_x11 = true
 
   # Create a forwarded port
+  config.vm.network "forwarded_port", guest: 6633, host: 6633 #ODL openflow
+  config.vm.network "forwarded_port", guest: 8080, host: 8080 #ODL restconf
   config.vm.network "forwarded_port", guest: 8181, host: 8181 #ODL dlux
+  config.vm.network "forwarded_port", guest: 8101, host: 8101 #ODL ssh
   config.vm.network "forwarded_port", guest: 3000, host: 3000 #SDN IDE
   for i in 9000..9100
     config.vm.network :forwarded_port, guest: i, host: i #SDN IDE
   end
-  config.vm.network "forwarded_port", guest: 8080, host: 8080 #docker
-  
+  config.vm.network "forwarded_port", guest: 8081, host: 8081 #docker cadvisor
+
 # configure virtualbox provider
   config.vm.provider "virtualbox" do |v|
     v.name = "FASTMaple"
@@ -25,6 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # run ./bootstrap.sh
+  config.vm.provision :shell, :path => "bootstrap-docker.sh"
   config.vm.provision :shell, :path => "bootstrap-fast.sh"
   config.vm.provision :shell, :path => "bootstrap-devopen.sh"
 end
