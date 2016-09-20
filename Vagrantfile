@@ -31,4 +31,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "bootstrap-docker.sh"
   config.vm.provision :shell, :path => "bootstrap-fast.sh"
   config.vm.provision :shell, :path => "bootstrap-devopen.sh"
+  config.vm.provision :shell, :path => "bootstrap-maple.sh"
 end
