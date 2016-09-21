@@ -1,4 +1,4 @@
-# FAST VM
+# ODL Summit 2016 Tutorial VM
 
 ## Installation
 
