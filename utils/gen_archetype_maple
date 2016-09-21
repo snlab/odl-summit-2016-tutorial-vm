@@ -1,0 +1,28 @@
+#!/bin/bash
+rm hello -r
+#mvn archetype:generate \
+#    -DarchetypeGroupId=fast \
+#    -DarchetypeArtifactId=fast-app-archetype \
+#    -DarchetypeVersion=1.0.0-SNAPSHOT \
+#    -DgroupId=fast \
+#    -DartifactId=hello \
+#    -Dversion=0.1.0-SNAPSHOT \
+#    -Dpackage=fast.hello \
+#    -DclassPrefix=Hello \
+#    -Dcopyright=SNLab \
+#    -DcopyrightYear=2016 \
+#    -DinteractiveMode=false
+
+    mvn archetype:generate \
+        -DarchetypeGroupId=org.opendaylight.maple \
+        -DarchetypeArtifactId=maple-archetype \
+        -DarchetypeVersion=1.0.0-Beryllium-SR2 \
+        -DgroupId=fast.hello \
+        -DartifactId=hello \
+        -Dversion=0.1.0-SNAPSHOT \
+        -Dpackage=maple.hello \
+        -DclassPrefix=Hello \
+        -Dcopyright=SNLab \
+        -DcopyrightYear=2016 \
+        -DinteractiveMode=false
+
