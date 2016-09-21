@@ -13,7 +13,7 @@ in this directory.
 
 ## Usage
 
-The username and password are both `Vagrant`. You can use the VirtualBox GUI as normal or run
+The username and password are both `vagrant`. You can use the VirtualBox GUI as normal or run
 
 ```
 vagrant ssh
