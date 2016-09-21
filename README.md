@@ -72,11 +72,13 @@ These scripts:
 ## Note: Re-generate VM from a clean stage
 In your host machine, type:
  ```
+ cd ${home_directory_of_this_repo}
  vagrant destroy
  vagrant up
  ```
  
-Generate a Maple APP (This APP is for testing)
+## Generate a Maple APP
+
 In your Virtualbox VM, type:
 ```
 cd /home/vagrant/utils
