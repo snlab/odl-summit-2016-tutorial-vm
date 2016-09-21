@@ -23,6 +23,10 @@ sed -i -e 's_127.0.0.1_0.0.0.0_g' ./cloud9/configs/standalone.js
 pushd /home/vagrant/tutorial/cloud9/plugins
 if [ ! -d "snlab.devopen.newresource" ]; then
   git clone https://github.com/snlab/snlab.devopen.newresource
+else
+  pushd snlab.devopen.newresource
+  git pull
+  popd
 fi
 if [ ! -d "snlab.devopen.controller" ]; then
   git clone https://github.com/snlab/snlab.devopen.controller
@@ -34,9 +38,24 @@ if [ ! -d "snlab.devopen.controller" ]; then
   npm install ssh2 && npm install scp2
   popd
   cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
+else
+  pushd snlab.devopen.controller
+  git pull
+  popd
 fi
 if [ ! -d "snlab.devopen.server" ]; then
   git clone https://github.com/snlab/snlab.devopen.server
+else
+  pushd snlab.devopen.server
+  git pull
+  popd
+fi
+if [ ! -d "snlab.devopen.topoeditor" ]; then
+  git clone https://github.com/snlab/snlab.devopen.topoeditor
+else
+  pushd snlab.devopen.topoeditor
+  git pull
+  popd
 fi
 if [ ! -d "cloud9-docker" ]; then
   git clone https://github.com/fno2010/cloud9-docker.git -b devopen
