@@ -67,3 +67,22 @@ These scripts:
    ```
    localhost:9000
    ```
+   
+   
+## Note: Re-generate VM from a clean stage
+In your host machine, type:
+ ```
+ cd ${home_directory_of_this_repo}
+ vagrant destroy
+ vagrant up
+ ```
+ 
+## Generate a Maple APP
+
+In your Virtualbox VM, type:
+```
+cd /home/vagrant/utils
+./gen_archetype_maple
+```
+
+You will find a ```hello``` folder in ```/home/vagrant/utils```.
