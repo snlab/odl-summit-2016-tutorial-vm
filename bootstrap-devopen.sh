@@ -35,7 +35,7 @@ if [ ! -d "snlab.devopen.controller" ]; then
     export PATH=$PATH:/home/vagrant/bin
   fi
   pushd /home/vagrant/bin
-  npm install ssh2 && npm install scp2
+  npm install ssh2 && npm install scp2 && npm install optimist
   popd
   cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
 else
