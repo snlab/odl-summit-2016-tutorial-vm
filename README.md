@@ -22,22 +22,6 @@ vagrant ssh
 to connect to the VM from this directory.
 
 
-## Details
-
-These scripts:
-
-1. Boot an
-
-    ```
-    Ubuntu Desktop 14.04.5 LTS Trusty Tahr (64-bit)
-    ```
-
-    virtual machine on VirtualBox via Vagrant.
-
-2. Install and configure 
-   - Git, Java 8, and Maven 3.3.
-   - FAST, ODL
-
 ## Start FAST system
 
 1. Start ODL
@@ -58,18 +42,19 @@ These scripts:
 
 ## Start IDE
 
-1. Execute start.sh in cloud9
+1. After SSH'ing into VirtualBox (see above), execute `start.sh` to load cloud9:
    ```
-   ./home/vagrant/tutorial/cloud9/start.sh
+   /home/vagrant/tutorial/cloud9/start.sh
    ```
 
-2. Open your browser, and type below URI
+2. Open the following url in your host machine's browser:
    ```
    localhost:9000
    ```
    
    
 ## Note: Re-generate VM from a clean stage
+
 In your host machine, type:
  ```
  cd ${home_directory_of_this_repo}
