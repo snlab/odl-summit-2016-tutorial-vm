@@ -22,14 +22,6 @@ vagrant ssh
 to connect to the VM from this directory.
 
 
-## Start FAST system
-
-1. Start ODL
-   
-   ```
-   ./distribution-karaf-0.4.3-Beryllium-SR3/bin/karaf
-   ```
-
 ## Start IDE
 
 1. After SSH'ing into VirtualBox (see above), execute `start.sh` to load cloud9:
