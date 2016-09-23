@@ -54,12 +54,59 @@ to connect to the VM from this directory.
 
 ## Test Maple App from terminal
 
-Generate your Archetype in interactive mode, only thing your should care is the `DappName`
+Generate your Archetype in interactive mode, only thing your should care is the `DappName` where Maple's onPacket() lies in, and `artifactId`, which is the generated folder name
 ```
     mvn archetype:generate \
         -DarchetypeGroupId=org.opendaylight.maple \
         -DarchetypeArtifactId=maple-archetype \
         -DarchetypeVersion=1.0.0-Beryllium-SR3
+```
+
+You could find `DappName.java` from here:
+```
+src/main/resources/archetype-resources/impl/src/main/java/org/opendaylight/mapleapp/impl/{your_define_name}.java
+```
+
+And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to this {your_define_name}.java file.
+
+## Build your Maple app
+
+```
+cd {artifactId}
+mvn clean install -DskipTests
+```
+
+## Edit Maple config, and start Maple
+```
+cd ~/tutorial/maplemain-karaf-1.0.0-Beryllium-SR3/etc
+```
+
+Add following line into **org.ops4j.pax.url.mvn.cfg**
+```
+   org.ops4j.pax.url.mvn.defaultRepositories=\ file:${karaf.home}/${karaf.default.repository}@id=system.repository@snapshots,\ file:${karaf.data}/kar@id=kar.repository@multi@snapshots
+```
+
+And then run your Maple,
+```
+cd ~/tutorial/maplemain-karaf-1.0.0-Beryllium-SR3/bin
+./karaf
+```
+
+## Install MapleAPP into Maple
+In karaf,
+```
+kar:install file:{directory of your kar file}
+```
+The kar file will be located in {your_maple_app_directory}/features/target/*.kar
+
+## Start Mininet
+In your host machine, the home directory of this repo, type
+```
+vagrant ssh
+```
+A new terminal will appear, so that you could use Mininet. Type this to generate Topo based on ODL wiki page.
+```
+sudo mn --controller remote,192.168.1.174 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
 ```
 
 ## Note: Re-generate VM from a clean stage
