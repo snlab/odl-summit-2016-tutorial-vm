@@ -6,4 +6,5 @@ if [ ! -d "/home/vagrant/mininet" ]; then
 fi
 /home/vagrant/mininet/util/install.sh -a
 
-sudo -u vagrant cp /vagrant/mininetSim /home/vagrant/bin/
+sudo -u vagrant mkdir -p /home/vagrant/bin
+sudo -u vagrant cp /vagrant/utils/mininetSim /home/vagrant/bin/

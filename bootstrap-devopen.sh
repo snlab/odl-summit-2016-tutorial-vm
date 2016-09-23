@@ -59,6 +59,10 @@ else
 fi
 if [ ! -d "cloud9-docker" ]; then
   git clone https://github.com/fno2010/cloud9-docker.git -b devopen
+else
+  pushd cloud9-docker
+  git pull
+  popd
 fi
 cp -fr /home/vagrant/tutorial/cloud9/plugins/cloud9-docker/conf/test-config.js /home/vagrant/tutorial/cloud9/configs/
 cp -fr /home/vagrant/tutorial/cloud9/plugins/cloud9-docker/conf/client-workspace-test.js /home/vagrant/tutorial/cloud9/configs/
