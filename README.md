@@ -106,7 +106,7 @@ vagrant ssh
 ```
 A new terminal will appear, so that you could use Mininet. Type this to generate Topo based on ODL wiki page.
 ```
-sudo mn --controller remote,192.168.1.174 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
+sudo mn --controller remote,127.0.0.1 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
 ```
 
 ## Note: Re-generate VM from a clean stage
