@@ -1,5 +1,16 @@
 # ODL Summit 2016 Tutorial VM
 
+## Prerequisite
+
+vagrant and virtualbox
+
+Install vagrant:
+```
+sudo apt-get install vagrant
+```
+
+Download virtualbox from: https://www.virtualbox.org/wiki/Downloads
+
 ## Installation
 
 Git clone this repo
