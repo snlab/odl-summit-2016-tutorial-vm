@@ -2,6 +2,12 @@
 
 ## Installation
 
+Git clone this repo
+
+```
+git clone https://github.com/snlab/odl-summit-2016-tutorial-vm.git
+```
+
 After installing Vagrant and VirtualBox, run
 
 ```
