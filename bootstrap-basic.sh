@@ -38,7 +38,8 @@ mkdir -p /home/vagrant/tutorial
 mkdir -p /home/vagrant/.m2
 curl -L -o m2.zip $(curl -s https://api.github.com/repos/snlab/m2-odl-summit/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
 unzip m2.zip
-cp -r m2/* /home/vagrant/.m2/
+cp -rf m2/* /home/vagrant/.m2/
+rm -rf m2
 rm -f m2.zip
 
 EOF

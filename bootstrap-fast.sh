@@ -3,6 +3,8 @@
 # run the remaining commands as the vagrant user
 su vagrant <<EOF
 
+pushd ~/tutorial
+
 # clone public repository
 if [ ! -f "~/tutorial/fast-system-features-1.0.3-Beryllium-SR3.kar" ]||[ ! -d "~/.m2" ]; then
   if [ ! -d "~/tutorial/TempFastSystemKar" ]; then
