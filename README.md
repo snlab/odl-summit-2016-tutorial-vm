@@ -50,18 +50,7 @@ to connect to the VM from this directory.
    ```
    localhost:9000
    ```
-   
-   
-## Note: Re-generate VM from a clean stage
-
-In your host machine, type:
- ```
- cd ${home_directory_of_this_repo}
- vagrant destroy
- vagrant up
- ```
  
-
 
 ## Test Maple App from terminal
 
@@ -72,4 +61,13 @@ Generate your Archetype in interactive mode, only thing your should care is the 
         -DarchetypeArtifactId=maple-archetype \
         -DarchetypeVersion=1.0.0-Beryllium-SR3
 ```
+
+## Note: Re-generate VM from a clean stage
+
+In your host machine, type:
+ ```
+ cd ${home_directory_of_this_repo}
+ vagrant destroy
+ vagrant up
+ ```
 
