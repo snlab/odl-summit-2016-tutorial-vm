@@ -27,8 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = "2048"
   end
 
-  config.vm.synced_folder "utils", "/home/vagrant/tutorial/utils"
-  # run ./bootstrap.sh
+  config.vm.provision :shell, :path => "bootstrap-basic.sh"
   config.vm.provision :shell, :path => "bootstrap-mininet.sh"
   config.vm.provision :shell, :path => "bootstrap-fast.sh"
   config.vm.provision :shell, :path => "bootstrap-devopen.sh"
