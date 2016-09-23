@@ -30,16 +30,6 @@ to connect to the VM from this directory.
    ./distribution-karaf-0.4.3-Beryllium-SR3/bin/karaf
    ```
 
-2. Start FAST system based on ODL
-   
-   How to install a kar file, please see here
-   
-   https://wiki.opendaylight.org/view/FAST_Maple_Tutorials:_High-Level_SDN_Programming_using_Algorithmic_Policies#Running_the_hello_world_project
-   
-3. Play around with your first FAST APP
-
-    https://wiki.opendaylight.org/view/FAST_Maple_Tutorials:_High-Level_SDN_Programming_using_Algorithmic_Policies
-
 ## Start IDE
 
 1. After SSH'ing into VirtualBox (see above), execute `start.sh` to load cloud9:
@@ -62,12 +52,15 @@ In your host machine, type:
  vagrant up
  ```
  
-## Generate a Maple APP
 
-In your Virtualbox VM, type:
+
+## Test Maple App from terminal
+
+Generate your Archetype in interactive mode, only thing your should care is the `DappName`
 ```
-cd /home/vagrant/utils
-./gen_archetype_maple
+    mvn archetype:generate \
+        -DarchetypeGroupId=org.opendaylight.maple \
+        -DarchetypeArtifactId=maple-archetype \
+        -DarchetypeVersion=1.0.0-Beryllium-SR3
 ```
 
-You will find a ```hello``` folder in ```/home/vagrant/utils```.
