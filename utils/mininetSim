@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+"""
+run this file:
+sudo -E python mininet.py {*.graphml}
+"""
+
+import sys
+import json
+import re
+from mininet.net import Mininet
+from mininet.topo import Topo
+from mininet.link import TCLink
+from mininet.node import RemoteController
+from mininet.cli import CLI
+from mininet.log import MininetLogger
+
+ip_re = re.compile(r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
+
+class MininetSimulator(object):
+
+    def __init__(self, graph, controller_addr):
+        self.graph = graph
+        self.mininet_topo = Topo();
+        self.controller_addr = controller_addr
+
+    def generate_topo(self):
+        nodes = self.graph["nodes"]
+        edges = self.graph["edges"]
+        name = initiateName(self.graph)
+        for node in nodes:
+            if node["class"] == "circleHClass":
+                if (ip_re.match(node["title"])):
+                    self.mininet_topo.addHost(name[node["id"]], ip=node["title"])
+                else:
+                    self.mininet_topo.addHost(name[node["id"]])
+            elif node["class"] == "circleSClass":
+                self.mininet_topo.addSwitch(name[node["id"]], protocols="OpenFlow13")
+        for edge in edges:
+            # set link properties here.
+            # bw(Mbps), delay, loss, max_queue_size
+            # source code is in {mininet_root}/mininet/link.py
+            linkopts = dict()
+            self.mininet_topo.addLink(name[edge["source"]], name[edge["target"]], **linkopts)
+
+    def run(self):
+        self.generate_topo()
+        net = Mininet(topo=self.mininet_topo,
+                controller=RemoteController,
+                link=TCLink,
+                build=False,
+                autoStaticArp=False)
+        net.addController(ip=self.controller_addr)
+        net.start()
+        CLI(net)
+        net.stop()
+
+def initiateName(graph):
+    return {n["id"]: "h"+str(n["id"]) if n["class"]=="circleHClass" else n["title"] for n in graph["nodes"]}
+
+def main():
+    MininetLogger().setLogLevel(levelname="info")
+    topologydata = sys.argv[2]
+    g = json.loads(topologydata)
+    sim = MininetSimulator(g, sys.argv[1])
+    sim.run()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print "Usage: ./mininet.py [CONTROLLER_ADDR] [TOPOLOGY_DATA]"
+        sys.exit()
+    main()

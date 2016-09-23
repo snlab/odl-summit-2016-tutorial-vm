@@ -5,7 +5,7 @@ apt-get update
 apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs tmux
 
 # Install Node.js
-curl -sL https://deb.nodesource.com/setup | bash -
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
 apt-get install -y nodejs
 
 # run the remaining commands as the vagrant user
@@ -34,15 +34,15 @@ if [ ! -d "snlab.devopen.controller" ]; then
     mkdir -p /home/vagrant/bin
     export PATH=$PATH:/home/vagrant/bin
   fi
-  pushd /home/vagrant/bin
-  npm install ssh2 && npm install scp2 && npm install optimist
-  popd
-  cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
 else
   pushd snlab.devopen.controller
   git pull
   popd
 fi
+pushd /home/vagrant/bin
+npm install ssh2 && npm install scp2 && npm install optimist
+popd
+cp ./snlab.devopen.controller/deploy.js /home/vagrant/bin/deploy
 if [ ! -d "snlab.devopen.server" ]; then
   git clone https://github.com/snlab/snlab.devopen.server
 else
