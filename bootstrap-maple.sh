@@ -13,9 +13,14 @@ popd
 rm -rf /home/vagrant/tutorial/maple-archetype
 
 # Install Maple binary, *.tar.gz is reserved for staring a Maple from very clean stage
+if [ -f "/home/vagrant/tutorial/maple-latest.zip" ]; then
+  rm -f maple-latest.zip
+fi
 curl -L -o maple-latest.zip $(curl -s https://api.github.com/repos/snlab/Maple-release/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
+if [ -d "/home/vagrant/tutorial/maple-latest" ]; then
+  rm -r maple-latest
+fi
 unzip maple-latest.zip
-rm -f maple-latest.zip
 popd
 
 echo "Maple App has been installed successfully!"
