@@ -22,6 +22,8 @@ class MininetSimulator(object):
         self.graph = graph
         self.mininet_topo = Topo();
         self.controller_addr = controller_addr
+        if (self.controller_addr == "localhost"):
+            self.controller_addr = "127.0.0.1"
 
     def generate_topo(self):
         nodes = self.graph["nodes"]
