@@ -64,7 +64,7 @@ Generate your Archetype in interactive mode, only thing your should care is the 
 
 You could find `DappName.java` from here:
 ```
-src/main/resources/archetype-resources/impl/src/main/java/org/opendaylight/mapleapp/impl/{your_define_name}.java
+impl/src/main/resources/archetype-resources/impl/src/main/java/org/opendaylight/mapleapp/impl/{your_define_name}.java
 ```
 
 And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to this {your_define_name}.java file.
