@@ -209,15 +209,12 @@ In your host machine, the home directory of this repo, type
 vagrant ssh
 ```
 
-Copy **utils** from this repo into the VM,
-```
-scp -r {home_of_this_repo}/utils vagrant@{VM_IP}:~/
-```
-
 A new terminal will appear, so that you could use Mininet. Type this to generate Topo based on ODL wiki page.
 ```
 sudo mn --controller remote,127.0.0.1 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
 ```
+
+And then you should follow the steps listed in ODL wiki, and see the result!
 
 ## Note: Re-generate VM from a clean stage
 
