@@ -196,7 +196,8 @@ A new terminal will appear, so that you could use Mininet. Type this to generate
 sudo mn --controller remote,127.0.0.1 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
 ```
 
-And then you should follow the steps listed in ODL wiki, and see the result!
+And then you should follow the steps listed in ODL wiki https://wiki.opendaylight.org/view/SDN_Programming_using_High_Level_Programming_Abstractions#Build_and_deploy_M1
+, and see the result!
 
 ## Note: Re-generate VM from a clean stage
 
