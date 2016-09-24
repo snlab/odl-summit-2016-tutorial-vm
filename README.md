@@ -69,6 +69,110 @@ You could find `DappName.java` from here:
 
 And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to this {your_define_name}.java file.
 
+This is an M1 example, you could copy it into your {your_define_name}.java
+```
+/*
+ * Copyright (c) 2016 SNLAB and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
+package org.opendaylight.mapleapp.impl;
+/*
+import org.opendaylight.maple.core.increment.app.MapleAppBase;
+import org.opendaylight.maple.core.increment.app.ShortestPath;
+import org.opendaylight.maple.core.increment.packet.Ethernet;
+import org.opendaylight.maple.core.increment.packet.IPv4;
+import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
+import org.opendaylight.maple.core.increment.tracetree.Path;
+import org.opendaylight.maple.core.increment.tracetree.Port;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;*/
+
+import org.opendaylight.maple.core.increment.app.MapleAppBase;
+import org.opendaylight.maple.core.increment.app.ShortestPath;
+import org.opendaylight.maple.core.increment.packet.Ethernet;
+import org.opendaylight.maple.core.increment.packet.IPv4;
+import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
+import org.opendaylight.maple.core.increment.tracetree.Route;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+
+// firstapp must change to DappName you defined
+public class firstapp extends MapleAppBase {
+
+	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( firstapp.class);
+	ShortestPath sp;
+
+	private static final String      H1    = "10.0.0.1";
+	private static final int H1_IP = IPv4.toIPv4Address(H1);
+
+	private static final String      H2    = "10.0.0.2";
+	private static final int H2_IP = IPv4.toIPv4Address(H2);
+
+	private static final int HTTP_PORT = 80;
+
+	// TODO: Better explain the path construct
+	private static final String[] H12_HIGH_PATH = { H1, "openflow:1:3", "openflow:2:2", "openflow:4:1" };
+	private static final String[] H12_LOW_PATH  = { H1, "openflow:1:4", "openflow:3:2", "openflow:4:1" };
+	private static final String[] H21_HIGH_PATH = { H2, "openflow:4:4", "openflow:2:1", "openflow:1:1" };
+	private static final String[] H21_LOW_PATH  = { H2, "openflow:4:5", "openflow:3:1", "openflow:1:1" };
+
+	@Override
+	public void onPacket(MaplePacket pkt) {
+
+
+			if ( pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
+
+				// H1 (client) -> H2 (server)
+				if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
+
+					String[] path = null;
+
+					if ( pkt.TCPDstPortIs(HTTP_PORT) ) {
+						path = H12_HIGH_PATH;
+					} else {
+						path = H12_LOW_PATH;
+					}
+
+					// ***TODO***: Need to agree on either Route or Path, not both
+					pkt.setRoute(path);
+
+					// Reverse: H2 -> H1
+				} else if ( pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
+
+					String[] path = null;
+
+					if ( pkt.TCPSrcPortIs(HTTP_PORT) ) {
+						path = H21_HIGH_PATH;
+					} else {
+						path = H21_LOW_PATH;
+					}
+					pkt.setRoute(path);
+
+					// Other host pairs
+				} else {
+
+					pkt.setRoute(Route.DROP);
+
+				}
+
+			} else {  // For non-IPv4 traffic; Use the next Maple App
+
+				this.passToNext(pkt);
+
+			}
+
+		} // end of onPacket
+
+	}
+
+
+```
+
 ## Build your Maple app
 
 ```
@@ -105,15 +209,12 @@ In your host machine, the home directory of this repo, type
 vagrant ssh
 ```
 
-Copy **utils** from this repo into the VM,
-```
-scp -r {home_of_this_repo}/utils vagrant@{VM_IP}:~/
-```
-
 A new terminal will appear, so that you could use Mininet. Type this to generate Topo based on ODL wiki page.
 ```
 sudo mn --controller remote,127.0.0.1 --custom ~/utils/Maple_Topo_Scripts/exampletopo.py --topo mytopo --switch ovs,protocols=OpenFlow13 --mac
 ```
+
+And then you should follow the steps listed in ODL wiki, and see the result!
 
 ## Note: Re-generate VM from a clean stage
 
