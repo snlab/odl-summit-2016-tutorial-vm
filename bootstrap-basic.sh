@@ -20,6 +20,8 @@ if [ ! -d "/opt/apache-maven-3.3.9" ]; then
   rm /home/vagrant/apache-maven-3.3.9-bin.tar.gz
 fi
 
+apt-get install vim
+
 # log package version information
 git --version
 java -version
