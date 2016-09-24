@@ -26,10 +26,11 @@ class MininetSimulator(object):
             self.controller_addr = "127.0.0.1"
 
     def generate_topo(self):
-        nodes = self.graph["nodes"]
-        edges = self.graph["edges"]
-        name = initiateName(self.graph)
-        for node in nodes:
+        nodes = sortNodes(self.graph["nodes"])
+        name = initiateName(nodes)
+        edges = sortEdges(self.graph["edges"], name)
+        for i in range(len(nodes)):
+            node = nodes[i]
             if node["class"] == "circleHClass":
                 if (ip_re.match(node["title"])):
                     self.mininet_topo.addHost(name[node["id"]], ip=node["title"])
@@ -42,7 +43,7 @@ class MininetSimulator(object):
             # bw(Mbps), delay, loss, max_queue_size
             # source code is in {mininet_root}/mininet/link.py
             linkopts = dict()
-            self.mininet_topo.addLink(name[edge["source"]], name[edge["target"]], **linkopts)
+            self.mininet_topo.addLink(edge[0], edge[1], **linkopts)
 
     def run(self):
         self.generate_topo()
@@ -56,8 +57,22 @@ class MininetSimulator(object):
         CLI(net)
         net.stop()
 
-def initiateName(graph):
-    return {n["id"]: "h"+str(n["id"]) if n["class"]=="circleHClass" else n["title"] for n in graph["nodes"]}
+def sortNodes(iNodes):
+    hosts = [n for n in iNodes if n["class"]=="circleHClass"]
+    hosts.sort(key=lambda x: x["title"])
+    switches = [n for n in iNodes if n["class"]=="circleSClass"]
+    switches.sort(key=lambda x: x["title"])
+    return hosts + switches
+
+def initiateName(node):
+    return {node[i]["id"]: "h"+str(i+1) if node[i]["class"]=="circleHClass" else node[i]["title"] for i in range(len(node))}
+
+def sortEdges(iEdges, name):
+    oEdges = [(name[e["source"]], name[e["target"]])
+        if name[e["source"]] < name[e["target"]]
+        else (name[e["target"]], name[e["source"]]) for e in iEdges]
+    oEdges.sort()
+    return oEdges
 
 def main():
     MininetLogger().setLogLevel(levelname="info")
