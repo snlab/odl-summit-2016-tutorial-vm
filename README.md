@@ -71,6 +71,13 @@ And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to 
 
 This is an M1 example, you could copy it into your {your_define_name}.java
 ```
+/*
+ * Copyright (c) 2016 SNLAB and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.opendaylight.mapleapp.impl;
 
 import org.opendaylight.maple.core.increment.app.MapleAppBase;
