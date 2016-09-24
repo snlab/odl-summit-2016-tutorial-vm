@@ -101,6 +101,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+// firstapp must change to DappName you defined
 public class firstapp extends MapleAppBase {
 
 	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( firstapp.class);
