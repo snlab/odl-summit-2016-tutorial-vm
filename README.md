@@ -70,6 +70,7 @@ You could find `DappName.java` from here:
 And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to this {your_define_name}.java file.
 
 This is an M1 example, you could copy it into your {your_define_name}.java
+**Note:** if you set DappName as M1 for M1 example, or as M2 for M2 example, you could directly copy and paste the belowing java file into your {your_define_name}.java file.
 
 M1 example: https://github.com/snlab/fastmaple16/blob/master/M1.java
 
