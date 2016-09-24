@@ -79,7 +79,7 @@ import org.opendaylight.maple.core.increment.packet.IPv4;
 import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
 import org.opendaylight.maple.core.increment.tracetree.Route;
 
-public class M4a extends MapleAppBase {
+public class firstapp extends MapleAppBase {
 
 	private static final String      H1    = "10.0.0.1";
 	private static final int H1_IP = IPv4.toIPv4Address(H1);
