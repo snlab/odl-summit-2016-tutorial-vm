@@ -71,41 +71,15 @@ And then you could copy paste the Mapple App Code (M1-M3) from ODL wiki page to 
 
 This is an M1 example, you could copy it into your {your_define_name}.java
 ```
-/*
- * Copyright (c) 2016 SNLAB and others.  All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/epl-v10.html
- */
 package org.opendaylight.mapleapp.impl;
-/*
-import org.opendaylight.maple.core.increment.app.MapleAppBase;
-import org.opendaylight.maple.core.increment.app.ShortestPath;
-import org.opendaylight.maple.core.increment.packet.Ethernet;
-import org.opendaylight.maple.core.increment.packet.IPv4;
-import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
-import org.opendaylight.maple.core.increment.tracetree.Path;
-import org.opendaylight.maple.core.increment.tracetree.Port;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;*/
 
 import org.opendaylight.maple.core.increment.app.MapleAppBase;
-import org.opendaylight.maple.core.increment.app.ShortestPath;
 import org.opendaylight.maple.core.increment.packet.Ethernet;
 import org.opendaylight.maple.core.increment.packet.IPv4;
 import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
 import org.opendaylight.maple.core.increment.tracetree.Route;
-import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-
-// firstapp must change to DappName you defined
-public class firstapp extends MapleAppBase {
-
-	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( firstapp.class);
-	ShortestPath sp;
+public class M4a extends MapleAppBase {
 
 	private static final String      H1    = "10.0.0.1";
 	private static final int H1_IP = IPv4.toIPv4Address(H1);
@@ -115,7 +89,8 @@ public class firstapp extends MapleAppBase {
 
 	private static final int HTTP_PORT = 80;
 
-	// TODO: Better explain the path construct
+	// TODO: Better explain the path construct:
+	// TODO: Use s1, s2, ... in the construction if possible
 	private static final String[] H12_HIGH_PATH = { H1, "openflow:1:3", "openflow:2:2", "openflow:4:1" };
 	private static final String[] H12_LOW_PATH  = { H1, "openflow:1:4", "openflow:3:2", "openflow:4:1" };
 	private static final String[] H21_HIGH_PATH = { H2, "openflow:4:4", "openflow:2:1", "openflow:1:1" };
@@ -124,51 +99,51 @@ public class firstapp extends MapleAppBase {
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
+		int ethType = pkt.ethType();
 
-			if ( pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
+		// For IPv4 traffic only
+		if ( ethType == Ethernet.TYPE_IPv4) {
+			
+			// H1 (client) -> H2 (server)
+			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
-				// H1 (client) -> H2 (server)
-				if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
+				String[] path = null;
 
-					String[] path = null;
-
-					if ( pkt.TCPDstPortIs(HTTP_PORT) ) {
-						path = H12_HIGH_PATH;
-					} else {
-						path = H12_LOW_PATH;
-					}
-
-					// ***TODO***: Need to agree on either Route or Path, not both
-					pkt.setRoute(path);
-
-					// Reverse: H2 -> H1
-				} else if ( pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
-
-					String[] path = null;
-
-					if ( pkt.TCPSrcPortIs(HTTP_PORT) ) {
-						path = H21_HIGH_PATH;
-					} else {
-						path = H21_LOW_PATH;
-					}
-					pkt.setRoute(path);
-
-					// Other host pairs
-				} else {
-
-					pkt.setRoute(Route.DROP);
-
+				if ( ! pkt.TCPDstPortIs(HTTP_PORT) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
+					path = H12_LOW_PATH; 
+				} else {                                // Only HTTP traffic
+					path = H12_HIGH_PATH;
 				}
 
-			} else {  // For non-IPv4 traffic; Use the next Maple App
+				// ***TODO***: Need to agree on either Route or Path, not both
+				pkt.setRoute(path);
 
-				this.passToNext(pkt);
+			// Reverse: H2 -> H1
+			} else if ( pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
+
+				String[] path = null;
+
+				if ( ! pkt.TCPSrcPortIs(HTTP_PORT) ) {
+					path = H21_LOW_PATH;
+				} else {
+					path = H21_HIGH_PATH;
+				}
+				pkt.setRoute(path);
+
+			// Other host pairs
+			} else {
+
+				pkt.setRoute(Route.DROP);
 
 			}
+		}                       // end of ethType == Ethernet.TYPE_IPv4
 
-		} // end of onPacket
+		else {                  // Other type of traffic handled by another Maple App
+			passToNext(pkt);
+		}
 
-	}
+	} // end of onPacket
+}
 
 
 ```
