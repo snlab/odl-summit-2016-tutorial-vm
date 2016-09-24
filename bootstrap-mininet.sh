@@ -8,3 +8,4 @@ fi
 
 sudo -u vagrant mkdir -p /home/vagrant/bin
 sudo -u vagrant cp /vagrant/utils/mininetSim /home/vagrant/bin/
+echo "Mininet has been installed successfully!"

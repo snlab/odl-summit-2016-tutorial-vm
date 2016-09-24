@@ -2,17 +2,18 @@
 
 su vagrant <<EOF
 
-rm -rf /home/vagrant/tutorial/maple-archetype
-pushd /home/vagrant/tutorial
-git clone https://github.com/snlab/maple-archetype.git
+#rm -rf /home/vagrant/tutorial/maple-archetype
+#pushd /home/vagrant/tutorial
+#git clone https://github.com/snlab/maple-archetype.git
 
 # Install Maple Archetype
-pushd /home/vagrant/tutorial/maple-archetype
-mvn clean install -DskipTests
-popd
-rm -rf /home/vagrant/tutorial/maple-archetype
+#pushd /home/vagrant/tutorial/maple-archetype
+#mvn clean install -DskipTests
+#popd
+#rm -rf /home/vagrant/tutorial/maple-archetype
 
 # Install Maple binary, *.tar.gz is reserved for staring a Maple from very clean stage
+pushd /home/vagrant/tutorial
 if [ -f "/home/vagrant/tutorial/maple-latest.zip" ]; then
   rm -f maple-latest.zip
 fi
