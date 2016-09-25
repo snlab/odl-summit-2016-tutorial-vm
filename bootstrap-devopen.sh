@@ -73,6 +73,12 @@ if [ ! -d "/home/vagrant/tutorial/workspace" ]; then
   mkdir /home/vagrant/tutorial/workspace
 fi
 
+# Add topologies directory by default
+if [ ! -d "/home/vagrant/tutorial/workspace/topologies" ]; then
+  mkdir -p /home/vagrant/tutorial/workspace/topologies
+fi
+cp -r /vagrant/utils/topologies/* /home/vagrant/tutorial/workspace/topologies/
+
 # Add start cloud9
 echo "nodejs /home/vagrant/tutorial/cloud9/server.js test-config -s standalone --workspacetype=test -l 0.0.0.0 -p 9000 -w /home/vagrant/tutorial/workspace" > /home/vagrant/tutorial/cloud9/start.sh
 
