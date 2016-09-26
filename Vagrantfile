@@ -25,7 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.name = "FASTMaple"
     v.gui = true
-    v.memory = "2048"
+    v.memory = 4096
+    v.cpus = 2
   end
 
 #  config.vm.synced_folder "utils", "/home/vagrant/utils"
