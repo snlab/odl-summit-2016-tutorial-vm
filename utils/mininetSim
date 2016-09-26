@@ -7,6 +7,7 @@ sudo -E python mininet.py {*.graphml}
 import sys
 import json
 import re
+from mininet.clean import cleanup
 from mininet.net import Mininet
 from mininet.topo import Topo
 from mininet.link import TCLink
@@ -75,11 +76,14 @@ def sortEdges(iEdges, name):
     return oEdges
 
 def main():
-    MininetLogger().setLogLevel(levelname="info")
-    topologydata = sys.argv[2]
-    g = json.loads(topologydata)
-    sim = MininetSimulator(g, sys.argv[1])
-    sim.run()
+    try:
+        MininetLogger().setLogLevel(levelname="info")
+        topologydata = sys.argv[2]
+        g = json.loads(topologydata)
+        sim = MininetSimulator(g, sys.argv[1])
+        sim.run()
+    except Exception:
+        cleanup()
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
