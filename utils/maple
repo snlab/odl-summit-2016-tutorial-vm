@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pushd /home/vagrant/bin > /dev/null
+rm -rf maplemain-*
+unzip /home/vagrant/tutorial/maple-latest.zip
+maplemain-*/bin/karaf
+popd
