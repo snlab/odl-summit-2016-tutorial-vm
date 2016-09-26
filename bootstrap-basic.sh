@@ -44,4 +44,5 @@ cp -rf m2/* /home/vagrant/.m2/
 rm -rf m2
 rm -f m2.zip
 
+cp -r /vagrant/Maple_Topo_Scripts /home/vagrant/
 EOF
