@@ -25,6 +25,7 @@ unzip maple-latest.zip
 popd
 
 cp /vagrant/utils/maple /home/vagrant/bin/maple
+ln -s /home/vagrant/bin/maple /home/vagrant/bin/start_maple_controller
 
 echo "Maple App has been installed successfully!"
 EOF
