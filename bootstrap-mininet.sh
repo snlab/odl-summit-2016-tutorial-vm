@@ -7,5 +7,5 @@ fi
 /home/vagrant/mininet/util/install.sh -a
 
 sudo -u vagrant mkdir -p /home/vagrant/bin
-sudo -u vagrant cp /vagrant/utils/mininetSim /usr/local/bin/
+sudo cp /vagrant/utils/mininetSim /usr/local/bin/
 echo "Mininet has been installed successfully!"
