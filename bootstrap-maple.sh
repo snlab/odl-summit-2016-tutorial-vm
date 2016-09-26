@@ -24,5 +24,7 @@ fi
 unzip maple-latest.zip
 popd
 
+cp /vagrant/utils/maple /home/vagrant/bin/maple
+
 echo "Maple App has been installed successfully!"
 EOF
